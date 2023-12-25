@@ -31,12 +31,13 @@ class ProductAdapter(private val context: Context, private val productList: List
         val product = productList[position]
 
         holder.productName.text = product.nom
-        holder.productPrice.text = product.prix
+        holder.productPrice.text = "Price : "+product.prix
         Picasso.get().load(product.image).into(holder.productImage)
 
         val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
         val formattedDate = product.date_fin_os.format(formatter)
-        holder.productOs.text = "End of support: $formattedDate (${product.differenceInYears()} years left)"
+        holder.productOs.text = " ${product.differenceInYears()}"
+      //  holder.productOs.text = "End of support: $formatter (${product.differenceInYears()})"
     }
 
     override fun getItemCount(): Int {

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
+             android:layout_height="wrap_content"
              android:orientation="horizontal"
+    android:layout_marginBottom="50dp"
     >
     <ImageView
         android:layout_marginTop="10dp"
@@ -17,15 +18,25 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
+
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/lign"
             android:layout_width="175dp"
             android:layout_height="31dp"
+            android:background="@android:drawable/alert_light_frame"
             android:gravity="center"
             android:text="name"
             android:textSize="24dp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="31dp"
+            android:background="@drawable/bg_recyclerview"
+            android:gravity="center"
+            android:text="name"
+            android:textSize="24dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_price"
@@ -45,7 +56,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="os supporte"
-            android:textSize="24dp"
+            android:textSize="18dp"
             android:textStyle="bold"
             />
     </LinearLayout>

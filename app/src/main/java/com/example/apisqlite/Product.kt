@@ -1,40 +1,12 @@
 package com.example.apisqlite
-/*
-import java.time.LocalDate
-import java.time.Period
-import java.util.Date
 
-
-data class Product(
-    val nom: String,
-    val systeme_exploitation: String,
-    val date_fin_os: String,
-   // val date_fin_os1: Date,
-
-    val prix: String,
-    val image: String,
-) {
-    override fun toString(): String {
-        return "Product(nom='$nom', systeme_exploitation='$systeme_exploitation', date_fin_os='$date_fin_os', prix='$prix', image='$image')"
-    }
-
-       /* fun deference(): Int {
-            return Period.between(date_fin_os1, LocalDate.now()).years
-        }
-
-        */
-
-
-}
-
-
-
- */
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.Locale
-
 
 data class Product(
     val nom: String,
@@ -42,17 +14,23 @@ data class Product(
     val date_fin_os: LocalDate,
     val prix: String,
     val image: String
-)
- {
+) {
+    data class EndOfSupport(val days: Long, val months: Long, val years: Long)
+
     @SuppressLint("NewApi")
-    fun differenceInYears(): Int {
-        return LocalDate.now().until(date_fin_os).years
+    fun differenceInYears(): EndOfSupport {
+        val difference = ChronoUnit.DAYS.between(LocalDate.now(), date_fin_os)
+        val days = difference % 30
+        val months = (difference % 365) / 30
+        val years = difference / 365
+
+        return EndOfSupport(days, months, years)
     }
 }
 
-
-
 object ProductUtils {
+    @SuppressLint("NewApi")
+    @RequiresApi(Build.VERSION_CODES.O)
     fun parseDateString(dateString: String): LocalDate {
         val frenchMonthNames = listOf(
             "janvier", "février", "mars", "avril", "mai", "juin",
@@ -67,10 +45,4 @@ object ProductUtils {
         return LocalDate.of(year, month, day)
     }
 }
-
-
-
-
-
-
 
